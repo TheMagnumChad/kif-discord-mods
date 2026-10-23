@@ -1,0 +1,37 @@
+name: Check mods
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Ruby 3.1, the version the game runs
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1"
+
+      - name: Check the changed mods
+        env:
+          EVENT: ${{ github.event_name }}
+          BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          # The rules come from main, never from the pull request itself
+          if [ "$EVENT" = "pull_request" ]; then
+            git show "$BASE:tools/check_mods.rb" > "$RUNNER_TEMP/check_mods.rb" 2>/dev/null || cp tools/check_mods.rb "$RUNNER_TEMP/check_mods.rb"
+            mapfile -t DIRS < <(git diff --name-only "$BASE" HEAD | cut -d/ -f1 | sort -u | while read -r d; do [ -d "$d" ] && echo "$d"; done)
+          else
+            cp tools/check_mods.rb "$RUNNER_TEMP/check_mods.rb"
+            DIRS=()
+          fi
+          MODS_ROOT="$PWD" ruby "$RUNNER_TEMP/check_mods.rb" "${DIRS[@]}"
