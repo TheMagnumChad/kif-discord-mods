@@ -1,0 +1,17 @@
+{
+  "name": "Shiny Soul",
+  "id": "shiny_soul",
+  "version": "1.0.1",
+  "author": "Imported from Discord",
+  "description": "Your shiny Pokemon flash in a colour you choose when their shiny animation plays. Options > KIF Settings > Mods > Shiny Soul Options.",
+  "tags": [
+    "Visual"
+  ],
+  "dependencies": [],
+  "incompatible": [],
+  "settings": [],
+  "scripts": [
+    "ShinySoul.rb"
+  ],
+  "requires_kif": ">=1.1.0"
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Journey Camera & Perspective",
+  "id": "overworld_zoom_redux",
+  "version": "1.1.1",
+  "author": "Copilot (Imported from Discord)",
+  "description": "Improves how the world is framed with perspective options and adds an immersive Journey Camera with albums, location checklists, and battle photography.",
+  "tags": [
+    "Gameplay",
+    "Camera",
+    "QoL"
+  ],
+  "dependencies": [],
+  "incompatible": [],
+  "settings": [],
+  "scripts": [
+    "main.rb",
+    "camera_system.rb"
+  ],
+  "requires_kif": ">=1.1.0"
+}

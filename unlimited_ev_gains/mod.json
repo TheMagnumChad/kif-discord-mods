@@ -1,0 +1,17 @@
+{
+  "name": "Unlimited EV Gains",
+  "id": "unlimited_ev_gains",
+  "version": "1.0.0",
+  "author": "Imported from Discord",
+  "description": "Raises the EV limits to 999 per stat (5994 in total).",
+  "tags": [
+    "Balance"
+  ],
+  "dependencies": [],
+  "incompatible": [],
+  "settings": [],
+  "scripts": [
+    "Unlimited_EV_Gains.rb"
+  ],
+  "requires_kif": ">=1.1.0"
+}

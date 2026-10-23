@@ -1,0 +1,18 @@
+{
+  "name": "Quick Throw",
+  "id": "quick_throw",
+  "version": "1.5.1",
+  "author": "Stonewall (Imported from Discord)",
+  "description": "Throw your last used Poke Ball from the battle command menu with one key, pick another ball by holding Action with Left/Right, and see catch chances.",
+  "tags": [
+    "QoL",
+    "Gameplay"
+  ],
+  "dependencies": [],
+  "incompatible": [],
+  "settings": [],
+  "scripts": [
+    "10b_QuickThrow.rb"
+  ],
+  "requires_kif": ">=1.1.0"
+}

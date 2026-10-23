@@ -1,0 +1,17 @@
+{
+  "name": "True Hard Mode",
+  "id": "true_hard_mode",
+  "version": "1.0.1",
+  "author": "Loopy (Imported from Discord)",
+  "description": "Harder trainer battles: trainer Pokemon get 6 moves, held items, max IVs, raised base stats and a 1.5x-2x stat boost by badge count, heal on switch-in and get fired up below half HP. Wild battles are unchanged. No settings.",
+  "tags": [
+    "Difficulty"
+  ],
+  "dependencies": [],
+  "incompatible": [],
+  "settings": [],
+  "scripts": [
+    "HardMode.rb"
+  ],
+  "requires_kif": ">=1.1.0"
+}

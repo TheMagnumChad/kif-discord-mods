@@ -1,0 +1,17 @@
+{
+  "name": "Clothing Unlock",
+  "id": "clothing_unlock",
+  "version": "1.0.1",
+  "author": "Voidcat Cyr (Imported from Discord)",
+  "description": "Opening any hat shop unlocks every hat and outfit in the game.",
+  "tags": [
+    "Cosmetic"
+  ],
+  "dependencies": [],
+  "incompatible": [],
+  "settings": [],
+  "scripts": [
+    "clothingUnlock.rb"
+  ],
+  "requires_kif": ">=1.1.0"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Overworld Menu",
+  "id": "overworld_menu",
+  "version": "2.0.1",
+  "author": "Stonewall (Imported from Discord)",
+  "description": "A quick menu on the map, opened with a key you choose, with your party, the weather and shortcuts that other mods can add to.",
+  "tags": [
+    "QoL",
+    "UI"
+  ],
+  "dependencies": [],
+  "incompatible": [],
+  "settings": [],
+  "scripts": [
+    "01a_Overworld_Menu.rb"
+  ],
+  "requires_kif": ">=1.1.0"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Save Tags",
+  "id": "save_tags",
+  "version": "1.0.1",
+  "author": "Imported from Discord",
+  "description": "Give a save a short text tag (like Nuzlocke or Challenge Run), shown on the load and save screens. Set it in KIF Settings > Mods > Change Save Tag.",
+  "tags": [
+    "QoL",
+    "UI"
+  ],
+  "dependencies": [],
+  "incompatible": [],
+  "settings": [],
+  "scripts": [
+    "15_savetags.rb"
+  ],
+  "requires_kif": ">=1.1.0"
+}

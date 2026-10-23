@@ -1,0 +1,26 @@
+{
+  "name": "Xorron's Mods Collection",
+  "id": "xorrons_mods_collection",
+  "version": "1.1.1",
+  "author": "Xorron (Imported from Discord)",
+  "description": "Party followers in a V formation, wandering trainers you can battle, map progress, Auto-Battle auto-capture, infinite Safari steps, shiny overworld sprites and a 60/90 FPS option. Settings: Options > KIF Settings > Mods > Xorron Mod Menu.",
+  "tags": [
+    "Gameplay",
+    "QoL",
+    "Visual"
+  ],
+  "dependencies": [],
+  "incompatible": [],
+  "settings": [],
+  "scripts": [
+    "000_Xorron_Mod_Menu.rb",
+    "Infinite-Safari-Zone-Steps.rb",
+    "KurayAutoCapture.rb",
+    "Wandering_Trainers_Mod.rb",
+    "Xorrons_Graphic_Overhaul.rb",
+    "Xorrons_Map_Progress.rb",
+    "Xorrons_PokePetSystem.rb",
+    "Xorrons_Shiny_Sprite_Fix.rb"
+  ],
+  "requires_kif": ">=1.1.0"
+}

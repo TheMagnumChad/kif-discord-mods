@@ -1,0 +1,17 @@
+{
+  "name": "Romanoff's Rework",
+  "id": "romanoffs_rework",
+  "version": "1.0.1",
+  "author": "Romanoff (Imported from Discord)",
+  "description": "A rebalance of 156 Pokemon: new types, base stats, EV yields, abilities and some moves (e.g. Arbok Poison/Dark, Ninetales Fire/Psychic, Charizard with White Smoke).",
+  "tags": [
+    "Balance"
+  ],
+  "dependencies": [],
+  "incompatible": [],
+  "settings": [],
+  "scripts": [
+    "romanoffs_rework.rb"
+  ],
+  "requires_kif": ">=1.1.0"
+}

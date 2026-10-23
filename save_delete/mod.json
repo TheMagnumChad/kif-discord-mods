@@ -1,0 +1,18 @@
+{
+  "name": "Save Delete",
+  "id": "save_delete",
+  "version": "1.0.1",
+  "author": "Stonewall (Imported from Discord)",
+  "description": "Press D on a save in the load menu to move it and its autosaves into a DELETED SAVES folder. Save Delete Settings restores them or empties that folder.",
+  "tags": [
+    "QoL",
+    "UI"
+  ],
+  "dependencies": [],
+  "incompatible": [],
+  "settings": [],
+  "scripts": [
+    "30_Save Delete.rb"
+  ],
+  "requires_kif": ">=1.1.0"
+}

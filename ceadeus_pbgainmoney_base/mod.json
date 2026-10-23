@@ -1,0 +1,17 @@
+{
+  "name": "pbGainMoney Base",
+  "id": "ceadeus_pbgainmoney_base",
+  "version": "1.0.1",
+  "author": "Ceadeus (Imported from Discord)",
+  "description": "A base for money mods: splits the end-of-battle money code into parts other mods can change. Changes nothing on its own.",
+  "tags": [
+    "Gameplay"
+  ],
+  "dependencies": [],
+  "incompatible": [],
+  "settings": [],
+  "scripts": [
+    "ceadeus0_pbGainMoney_base_mod.rb"
+  ],
+  "requires_kif": ">=1.1.0"
+}
