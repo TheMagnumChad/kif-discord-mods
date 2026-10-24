@@ -63,6 +63,7 @@ module HoennNativeKIF
     return false if ROUTE_ONE_ONLY && $game_map.map_id != TEST_MAP_ID
     return false if MAP_ALLOWLIST && !MAP_ALLOWLIST.include?($game_map.map_id)
     return false if MAP_BLOCKLIST.include?($game_map.map_id)
+    return false if indoor_map?
     return false unless spawn_habitat_available? || town_wildlife_map? || route_water_habitat_available?
     return false unless defined?(DynamicOverworldPokemonEvent)
     return false if $game_temp && ($game_temp.in_menu || $game_temp.message_window_showing)
@@ -76,6 +77,15 @@ module HoennNativeKIF
     return false unless $Trainer && $Trainer.able_pokemon_count > 0
     return false if defined?(isRepelActive) && isRepelActive()
     return true
+  end
+
+  # Indoor maps sometimes inherit encounter tables. No wildlife in the living room.
+  def self.indoor_map?
+    return false unless $game_map && defined?(GameData::MapMetadata)
+    meta = GameData::MapMetadata.try_get($game_map.map_id)
+    return false unless meta && !meta.outdoor_map
+    return false if $PokemonEncounters && $PokemonEncounters.has_cave_encounters?
+    true
   end
 
   def self.spawn_habitat_available?
@@ -262,6 +272,7 @@ module HoennNativeKIF
 
   def self.town_wildlife_map?
     return false unless TOWN_WILDLIFE_ENABLED && $game_map
+    return false if indoor_map?
     id = $game_map.map_id
     return false if TOWN_EXCLUDED_MAP_IDS.include?(id)
     return true if TOWN_MAP_IDS.include?(id)
@@ -310,31 +321,52 @@ module HoennNativeKIF
     pool.empty? ? nil : pool[rand(pool.length)]
   end
 
-  # DIRECTION_ALL skips directional tile flags. Buildings loved that loophole.
-  def self.town_land_tile?(x, y)
+  # A passable roof is still a roof. Only use ground connected to the player.
+  def self.town_land_tile?(x, y, reachable = nil)
     return false unless $game_map.valid?(x, y)
     return false if $game_map.terrain_tag(x, y).can_surf
     directions = [2, 4, 6, 8]
     return false unless directions.all? { |dir| $game_map.OWPokemonPassable?(x, y, dir) }
+    return false unless (reachable || town_reachable_tiles)[[x, y]]
+    true
+  end
 
-    # No wildlife trapped in a sealed tile, either.
-    directions.any? do |dir|
-      nx = x + (dir == 6 ? 1 : dir == 4 ? -1 : 0)
-      ny = y + (dir == 2 ? 1 : dir == 8 ? -1 : 0)
-      next false unless $game_map.valid?(nx, ny)
-      next false unless $game_map.OWPokemonPassable?(nx, ny, dir)
-      true
+  def self.town_reachable_tiles
+    # Rebuild for each spawn search; map events can change between attempts.
+    return [] unless $game_map && $game_player
+    start = [$game_player.x, $game_player.y]
+    return [] unless $game_map.valid?(*start)
+    seen = {start => true}
+    queue = [start]
+    index = 0
+    steps = [[2, 0, 1, 8], [4, -1, 0, 6], [6, 1, 0, 4], [8, 0, -1, 2]]
+    while index < queue.length
+      cx, cy = queue[index]
+      index += 1
+      steps.each do |dir, dx, dy, reverse|
+        nx, ny = cx + dx, cy + dy
+        pos = [nx, ny]
+        next if seen[pos] || !$game_map.valid?(nx, ny)
+        next if (nx - start[0]).abs > SPAWN_RADIUS + 5 || (ny - start[1]).abs > SPAWN_RADIUS + 5
+        next unless $game_map.passable?(cx, cy, dir)
+        next unless $game_map.passable?(nx, ny, reverse)
+        seen[pos] = true
+        queue << pos
+      end
     end
+    seen
   end
 
   def self.town_position
     return nil unless $game_map && $game_player
+    reachable = town_reachable_tiles
     30.times do
       x = $game_player.x + rand(-SPAWN_RADIUS..SPAWN_RADIUS)
       y = $game_player.y + rand(-SPAWN_RADIUS..SPAWN_RADIUS)
       next if x < 1 || y < 1 || x >= $game_map.width-1 || y >= $game_map.height-1
       next if (x-$game_player.x).abs + (y-$game_player.y).abs < TOWN_MIN_DISTANCE
-      next unless town_land_tile?(x, y)
+      next unless reachable[[x, y]]
+      next unless town_land_tile?(x, y, reachable)
       next if $game_map.events.values.any? { |ev| ev && ev.x == x && ev.y == y }
       return [x,y]
     end
