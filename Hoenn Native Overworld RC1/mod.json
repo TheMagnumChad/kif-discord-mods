@@ -4,7 +4,7 @@
   "version": "0.12.24-rc1",
   "author": "TheMagnumChad",
   "description": "Living overworld Pokémon with native Hoenn AI, social interactions, and spontaneous fusion.",
-  "requires_kif": ">=1.0.0"
+  "requires_kif": ">=1.0.0",
   "scripts": [
     "01_settings.rb",
     "02_spawning.rb",
