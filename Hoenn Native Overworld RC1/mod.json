@@ -1,0 +1,24 @@
+{
+  "id": "hoenn_native_kif",
+  "name": "Hoenn Native Overworld",
+  "version": "0.12.24-rc1",
+  "author": "TheMagnumChad",
+  "description": "Living overworld Pokémon with native Hoenn AI, social interactions, and spontaneous fusion.",
+  "requires_kif": ">=1.0.0"
+  "scripts": [
+    "01_settings.rb",
+    "02_spawning.rb",
+    "03_engine_hooks.rb",
+    "04_fusion_effects.rb",
+    "05_encounter_behavior.rb",
+    "06_shiny_effects.rb",
+    "07_map_cleanup.rb",
+    "08_social_and_fusion.rb",
+    "09_catch_off_guard.rb",
+    "10_pokeradar_integration.rb",
+    "11_hidden_ability_marker.rb",
+    "12_alpha_bridge.rb"
+  ],
+  "dependencies": [],
+  "enabled": true
+}
