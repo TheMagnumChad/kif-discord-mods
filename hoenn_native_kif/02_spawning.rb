@@ -137,8 +137,7 @@ module HoennNativeKIF
          rand(100) < TOWN_SPAWN_CHANCE_PERCENT
         spawn_town_wildlife
       end
-      # Existing route/cave spawning is left intact on mixed-habitat maps.
-      spawn_one if spawn_habitat_available? && population < HoennNativeKIFSettings.population_limit
+      # Towns use their own wildlife pool. Don't run route spawning here too.
     else
       # Route water uses the proven town water tile search and native AI,
       # independently capped from grass/cave overworld encounters.
@@ -169,9 +168,12 @@ module HoennNativeKIF
   end
 
   def self.town_population
+    # Count the Pokemon actually on the map, not just ones with our town tag.
+    # Some events can lose their tag after a reload. Sneaky little things.
     $game_map.events.values.count do |ev|
       ev.is_a?(DynamicOverworldPokemonEvent) &&
-        ev.instance_variable_get(:@hoenn_native_town_wildlife)
+        ev.instance_variable_get(:@terrain) != :Water &&
+        !(ev.respond_to?(:erased?) && ev.erased?)
     end
   end
 
@@ -272,11 +274,15 @@ module HoennNativeKIF
 
   def self.town_wildlife_map?
     return false unless TOWN_WILDLIFE_ENABLED && $game_map
-    return false if indoor_map?
     id = $game_map.map_id
     return false if TOWN_EXCLUDED_MAP_IDS.include?(id)
+
+    # A town's name can carry into its buildings. The outdoor flag can't.
+    return false unless defined?(GameData::MapMetadata)
+    meta = GameData::MapMetadata.try_get(id)
+    return false unless meta && meta.outdoor_map == true
+
     return true if TOWN_MAP_IDS.include?(id)
-    # Restrict to named outdoor town/city maps
     name = ($game_map.name rescue '').to_s
     return false if name =~ /\b(interior|inside|house|mart|center|gym|gate|floor|room|building|basement|cave|tower|lab|ship)\b/i
     !!(name =~ /\b(town|city|village)\b/i || name =~ /\bCinnabar Island\b/i)
@@ -374,7 +380,9 @@ module HoennNativeKIF
   end
 
   def self.spawn_town_wildlife
+    return unless town_wildlife_map?
     return unless HoennNativeKIFSettings.towns?
+    return if town_population >= [TOWN_POPULATION_LIMIT, HoennNativeKIFSettings.population_limit].min
     species = town_species
     return unless species
     position = town_position
