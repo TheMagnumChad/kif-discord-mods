@@ -1,0 +1,9 @@
+{
+  "id": "hoenn_essentials",
+  "name": "Hoenn Essentials",
+  "version": "1.0.4-rc2",
+  "author": "TheMagnumChad",
+  "description": "Hoenn PokéNav, trainer relationships, and dynamic weather.",
+  "scripts": ["00_trainer_rematches.rb", "10_map_layout.rb", "11_weather.rb", "12_overworld.rb", "13_dynamic_weather.rb", "14_weather_visitors.rb", "15_fixed_encounter_tables.rb", "20_pokenav.rb", "21_challenges.rb", "22_challenge_button.rb", "23_challenge_scene.rb", "24_challenge_screen.rb", "25_suite_fixes.rb", "26_rc2_settings.rb"],
+  "tags": ["Gameplay", "QoL", "UI", "Content"]
+}
